@@ -11,26 +11,26 @@ var AppModule = (function () {
 
 	shared.markersByServiceType = markersByServiceType;
 
+	let lat;
+	let lng;
+
 	function setupListeners(){
 		var btn = document.querySelector('#btn');
 		btn.addEventListener('click', search);
+
+		GoogleMapModule.watchForMapMoves(function(lat, lng) {
+			console.log("Hiv Locator Module's callbabck from Google map module's watchForMapMoves method", lat, lng)
+				search(lat, lng);
+		});
 	}
 
 
-	function search (evt){
-		evt.preventDefault();
-		var input = document.querySelector('#query');
-		var query = input.value; // ZIP code
-
-		//GoogleMapModule.recenterMapOnZip( query )
-
+	function search (lat, lng){
+		
 		var fetchOptions = {
 			method: 'GET', 
 		};
-		var queryString = "zip=" + query + '&';
-		// queryString += 'lat=' + '&';
-		// queryString += 'lng=' + '&';
-		queryString += '&distance=10';
+		var queryString = 'lat=' + lat + '&long=' + lng + '&distance=10';
 
 		console.log("url:" + BASE_URL + queryString);
 
@@ -41,9 +41,7 @@ var AppModule = (function () {
 
 	function addLocationsToMap(data){
 		console.log('got data', data);
-
 		GoogleMapModule.removeMarkers();
-
 
 		// loop through the services array (in the data)
 		var services = data.services;
@@ -103,9 +101,9 @@ var AppModule = (function () {
 
 	function setMapOnAll(map, type) {
 		console.log(map);
-		       for (var i = 0; i < markersByServiceType[type].length; i++) {
-		         markersByServiceType[type][i].setMap(map);
-		       }
+		for (var i = 0; i < markersByServiceType[type].length; i++) {
+			markersByServiceType[type][i].setMap(map);
+		}
 	}
 
 	shared.setMapOnAll = setMapOnAll;

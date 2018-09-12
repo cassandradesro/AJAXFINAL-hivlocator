@@ -63,10 +63,15 @@ var GoogleMapModule = (function() {
 	shared.searchForPlaces = searchForPlaces;
 	
 	function initMap() {
-	   map = new google.maps.Map(document.getElementById('map'), {
-	     center: startingPoint,
-	     zoom: 14
-	   });
+		console.log('Map module initMap')
+
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: startingPoint,
+			zoom: 14
+		});
+
+
+		
 
 	   infowindow = new google.maps.InfoWindow();
 
@@ -99,6 +104,18 @@ var GoogleMapModule = (function() {
 	   
 	   shared.map = map;
 	}
+
+	function watchForMapMoves(callback) {
+		console.log("Map module watchForMapMoves()")
+
+
+		google.maps.event.addListener(map, 'mouseup', function( event ){
+			callback( map.getCenter().lat(), map.getCenter().lng() )
+		});
+	}
+
+	shared.watchForMapMoves = watchForMapMoves;
+	
 
 	shared.init = initMap;
 
