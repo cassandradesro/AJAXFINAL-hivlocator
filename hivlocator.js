@@ -1,7 +1,7 @@
 var AppModule = (function () {
 	var shared = {}
 
-	var BASE_URL = './locator.php?';
+	var BASE_URL = 'http://circuslabs.net/proxies/locator.hiv.gov/?';
 
 	var markersByServiceType = {
 		clinics: [],
@@ -28,10 +28,11 @@ var AppModule = (function () {
 			method: 'GET', 
 		};
 		var queryString = "zip=" + query + '&';
-		queryString += 'lat=' + '&';
-		queryString += 'lng=' + '&';
+		// queryString += 'lat=' + '&';
+		// queryString += 'lng=' + '&';
 		queryString += '&distance=10';
 
+		console.log("url:" + BASE_URL + queryString);
 
 		fetch(BASE_URL + queryString, fetchOptions)
 			.then(response => response.json())
