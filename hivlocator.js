@@ -11,12 +11,9 @@ var AppModule = (function () {
 
 	shared.markersByServiceType = markersByServiceType;
 
-	let lat;
-	let lng;
-
 	function setupListeners(){
-		var btn = document.querySelector('#btn');
-		btn.addEventListener('click', search);
+		// var btn = document.querySelector('#btn');
+		// btn.addEventListener('click', search);
 
 		GoogleMapModule.watchForMapMoves(function(lat, lng) {
 			console.log("Hiv Locator Module's callbabck from Google map module's watchForMapMoves method", lat, lng)

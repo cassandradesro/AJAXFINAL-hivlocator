@@ -39,6 +39,9 @@ input#query {
     font-size: 1rem;
     font-family: 'Montserrat', sans-serif;
 }
+a{
+    text-transform: none;
+}
 #search {
     position: absolute;
     width: 25%;
